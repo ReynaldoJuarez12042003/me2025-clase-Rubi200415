@@ -6,7 +6,7 @@ int main(void) {
     double Es1;
     double Es2 = 500;
     double VV;
-    double VC = 0; // Declarada aquí para que esté disponible al final
+    double VC = 0; 
     int funcion;
 
     printf("Las posibles funciones que realiza el programa son: \n 1)e^x\n 2)Cos(x)\n 3)1/(1-x)\n 4)arctan(x)\n 5)Sen(x)\n");
@@ -80,8 +80,7 @@ int main(void) {
         VV = atan(x);
         VC = x;
         for (int i = 1; i <= 100; i++) {
-            double termino = pow(-1, i) * pow(x, 2 * i + 1) / (2 * i + 1);
-            VC += termino;
+            VC + = pow(-1, i) * pow(x, 2 * i + 1) / (2 * i + 1);
             Es2 = fabs((VC - VV) / VV) * 100;
             printf("Iteración %d: VC = %f, Error = %f%%\n", i, VC, Es2);
 
@@ -98,8 +97,7 @@ int main(void) {
         double factorial = 1;
         for (int i = 1; i <= 100; i++) {
             factorial *= (2 * i) * (2 * i + 1); // Factorial para (2i+1)!
-            double termino = pow(-1, i) * pow(x, 2 * i + 1) / factorial;
-            VC += termino;
+            VC += pow(-1, i) * pow(x, 2 * i + 1) / factorial;
             Es2 = fabs((VC - VV) / VV) * 100;
             printf("Iteración %d: VC = %f, Error = %f%%\n", i, VC, Es2);
 
