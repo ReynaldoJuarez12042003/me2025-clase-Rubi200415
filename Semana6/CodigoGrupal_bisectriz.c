@@ -1,11 +1,3 @@
-/******************************************************************************
-
-                            Online C Compiler.
-                Code, Compile, Run and Debug C program online.
-Write your code in this editor and press "Run" button to compile and execute it.
-
-*******************************************************************************/
-
 #include <stdio.h>
 #include <math.h>
 
@@ -14,29 +6,38 @@ float f(float c) {
 }
 
 int main() {
-    float a = 14.5f, b = 15.5f;
-    float medio = 0.0f, medio_previo = 0.0f;
+    float a = 14.5, b = 15.5;
+    float medio = 0.0f, medio_anterior = 0.0;
     float error;
-    const float tol = 1e-6f;
+    float error_max = 0.001;
     int iter = 0;
-    
+    float error_iteracion;
+    float error_iteracion_comprobar;
+    float rango_inicial= b-a;
+
+
     do {
-        medio_previo = medio;
-        medio = (a + b) * 0.5f;
-        
-        if (f(medio) * f(a) < 0.0f) {
+        medio_anterior = medio;
+        medio = (a + b) * 0.5;
+
+        if (f(medio) * f(a) < 0.0) {
             b = medio;
         } else {
             a = medio;
         }
-        
-        error = fabsf(medio - medio_previo);
+
+        error = fabsf(medio - medio_anterior)/medio;
+        error_iteracion = (rango_inicial) / powf(2,iter);
+        error_iteracion_comprobar = (medio - medio_anterior);
+
         iter++;
-        
-    } while (error > tol);
-    
+
+    } while (error > error_max);
+
     printf("Raiz encontrada: %f\n", medio);
     printf("f(raiz) = %f\n", f(medio));
-    
+    printf("Error entre iteraciones = %f\n",error_iteracion);
+    printf("Error comprobado =%f\n", error_iteracion_comprobar);
+
     return 0;
 }
