@@ -13,7 +13,7 @@ int main() {
     float a =4, b = 20;
     float medio = 0.0f, medio_anterior = 0.0;
     float error;
-    float error_max = 0.001;
+    float error_max = 0.0001;
     int iter = 0;
     float error_iteracion;
     float error_iteracion_comprobar;
@@ -48,4 +48,5 @@ int main() {
     printf("Error comprobado =%f\n", error_iteracion_comprobar);
 
     return 0;
+
 }
