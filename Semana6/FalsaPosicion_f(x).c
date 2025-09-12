@@ -1,4 +1,4 @@
-//Ejercicio de funcion  f(c)= gm/c*(1-e^(-c/m*t))-v con el metodo de la falsa posiciòn.
+//Ejercicio de funcion  f(x)=(x^10) -1 con el metodo de la falsa posiciòn.
 
 
 
@@ -13,7 +13,7 @@ int main() {
     float a =0, b = 1.3;
     float medio = 0.0f, medio_anterior = 0.0;
     float error;
-    float error_max = 0.001;
+    float error_max = 0.0001;
     int iter = 0;
     float error_iteracion;
     float error_iteracion_comprobar;
@@ -50,4 +50,5 @@ int main() {
     printf("Error comprobado =%f\n", error_iteracion_comprobar);
 
     return 0;
+
 }
