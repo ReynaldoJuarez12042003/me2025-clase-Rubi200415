@@ -10,15 +10,17 @@ int main() {
     int iter_error = -1, iter = 0;
     
     printf("Optimizando f(x,y) = y - x - 2x² - 2xy - y²\n");
-    printf("Dominio: x∈[-2,2], y∈[1,3]\n\n");
+    printf("Dominio: x∈[-2,2], y∈[1,3]\n");
+    printf("BUSCANDO MAXIMO\n\n");
     
     for(double x = -2; x <= 2; x += 0.1) {
         for(double y = 1; y <= 3; y += 0.1) {
             iter++;
             double actual = f(x, y);
             
-            if(actual < mejor_f) {
-                double mejora = mejor_f - actual;
+            // CAMBIO: Buscar máximo (actual > mejor_f)
+            if(actual > mejor_f) {
+                double mejora = actual - mejor_f;  // CAMBIO: actual - mejor_f
                 if(mejora <= 0.0001 && iter_error == -1) {
                     iter_error = iter;
                 }
@@ -30,8 +32,8 @@ int main() {
     }
     
     printf("Resultado:\n");
-    printf("Minimo en: (%.2f, %.2f)\n", mejor_x, mejor_y);
-    printf("f_min = %.4f\n", mejor_f);
+    printf("MAXIMO en: (%.2f, %.2f)\n", mejor_x, mejor_y);
+    printf("f_max = %.4f\n", mejor_f);  // CAMBIO: f_max en lugar de f_min
     printf("Iteraciones: %d\n", iter);
     if(iter_error != -1) {
         printf("Mejora <= 0.0001 en iter: %d\n", iter_error);
