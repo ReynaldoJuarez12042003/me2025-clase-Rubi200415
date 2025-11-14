@@ -1,0 +1,81 @@
+import matplotlib.pyplot as plt
+
+# Datos
+x = [0.2, 0.8, 1.3, 1.9, 2.4, 3.1, 3.6, 4.2, 4.9, 5.3, 
+     5.8, 6.4, 6.9, 7.5, 8.0, 8.6, 9.1, 9.7, 10.2, 10.8, 
+     11.3, 11.9, 12.4, 13.0, 13.5, 14.1, 14.6, 15.2, 15.7, 16.3]
+
+y = [-0.7, 2.4, 4.9, 7.6, 9.5, 13.1, 14.7, 17.9, 21.8, 23.2, 
+     25.7, 28.5, 30.4, 33.8, 35.6, 38.4, 40.1, 43.2, 45.0, 47.8, 
+     50.1, 52.8, 54.7, 57.6, 59.3, 62.2, 64.4, 67.3, 69.1, 72.0]
+
+error_y = [0.4, 0.5, 0.6, 0.4, 0.7, 0.6, 0.3, 0.8, 0.7, 0.4, 
+          0.6, 0.9, 0.5, 0.7, 0.4, 0.6, 0.8, 0.5, 0.9, 0.7, 
+          0.4, 0.6, 0.8, 0.5, 0.7, 0.6, 0.9, 0.5, 0.8, 0.7]
+
+# Calcular sumatorias
+n = len(x)
+sum_x = sum(x)
+sum_y = sum(y)
+sum_xy = sum(x[i] * y[i] for i in range(n))
+sum_x2 = sum(x[i] * x[i] for i in range(n))
+
+# Calcular m y b
+m = (n * sum_xy - sum_x * sum_y) / (n * sum_x2 - sum_x * sum_x)
+b = (sum_y / n) - m * (sum_x / n)
+
+# Calcular chi-cuadrado
+chi2 = 0
+for i in range(n):
+    y_pred = m * x[i] + b
+    residual = y[i] - y_pred
+    chi2 += (residual * residual) / (error_y[i] * error_y[i])
+
+# Calcular R-cuadrado
+y_promedio = sum_y / n
+ss_total = sum((y[i] - y_promedio) ** 2 for i in range(n))
+ss_residual = sum((y[i] - (m * x[i] + b)) ** 2 for i in range(n))
+R2 = 1 - (ss_residual / ss_total)
+
+# Mostrar resultados
+print("RESULTADOS DEL AJUSTE LINEAL")
+print("=" * 40)
+print(f"Pendiente (m) = {m:.4f}")
+print(f"Intercepto (b) = {b:.4f}")
+print(f"Ecuación: y = {m:.4f}x + {b:.4f}")
+print(f"Chi-cuadrado = {chi2:.4f}")
+print(f"R-cuadrado = {R2:.4f}")
+print()
+
+# Mostrar tabla de datos
+print("TABLA DE DATOS")
+print("=" * 60)
+print("i   x     y     error  y_pred  residual")
+for i in range(n):
+    y_pred = m * x[i] + b
+    residual = y[i] - y_pred
+    print(f"{i+1:2}  {x[i]:4.1f}  {y[i]:4.1f}  {error_y[i]:4.1f}   {y_pred:5.2f}  {residual:6.3f}")
+
+# Hacer la gráfica
+plt.figure(figsize=(10, 6))
+
+# Puntos con error
+plt.errorbar(x, y, yerr=error_y, fmt='o', color='blue', 
+             label='Datos experimentales', capsize=3)
+
+# Recta de ajuste
+x_min = min(x)
+x_max = max(x)
+x_linea = [x_min, x_max]
+y_linea = [m * x_min + b, m * x_max + b]
+
+plt.plot(x_linea, y_linea, 'red', linewidth=2, 
+         label=f'y = {m:.3f}x + {b:.3f}')
+
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Ajuste Lineal por Mínimos Cuadrados')
+plt.legend()
+plt.grid(True)
+
+plt.show()
